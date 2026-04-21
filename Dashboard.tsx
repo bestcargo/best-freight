@@ -54,7 +54,6 @@ import {
 import { cn, formatCurrency } from './utils';
 import { Transaction, AIInsight } from './types';
 import { getFinancialInsights } from './gemini';
-import { useAuth } from '../contexts/AuthContext';
 import { db, auth, handleFirestoreError } from '../lib/firebase';
 import { 
   collection, 
@@ -77,7 +76,8 @@ const INITIAL_TRANSACTIONS: Transaction[] = [];
 const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#06b6d4', '#f97316'];
 
 export default function Dashboard() {
-  const { user, logout: firebaseLogout } = useAuth();
+  const user = auth.currentUser;
+  const firebaseLogout = async () => { await auth.signOut(); };
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loadingTransactions, setLoadingTransactions] = useState(true);
   const [currentTab, setCurrentTab] = useState<'dashboard' | 'assets' | 'expenses' | 'income' | 'settings'>('dashboard');
