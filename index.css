@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  --color-bg-main: #ffffff;
+  --color-bg-card: #ffffff;
+  --color-text-primary: #191f28;
+  --color-text-secondary: #8b95a1;
+  --color-accent: #256dff;
+  --color-border: #d6dce3;
+  --color-success: #00a15f;
+  --color-danger: #dc2626;
+}
+
+:root[data-theme="dark"] {
+  --color-bg-main: #0b1220;
+  --color-bg-card: #111a2e;
+  --color-text-primary: #e8eefc;
+  --color-text-secondary: #9aa9c4;
+  --color-accent: #4f8cff;
+  --color-border: #223252;
+  --color-success: #22c55e;
+}
+
+:root[data-tone="minimal"] {
+  --color-accent: #2563eb;
+}
+
+:root[data-tone="premium"] {
+  --color-accent: #3659d8;
+}
+
+:root[data-tone="enterprise"] {
+  --color-accent: #3182f6;
+}
+
+@layer base {
+  body {
+    @apply antialiased bg-bg-main text-text-primary selection:bg-blue-100;
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(37,109,255,0.16) 0%, transparent 34%),
+      radial-gradient(circle at 88% 16%, rgba(79,70,229,0.14) 0%, transparent 32%),
+      linear-gradient(180deg, #f9fbff 0%, #f4f7ff 100%);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+    isolation: isolate;
+  }
+
+  body::before,
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.28;
+  }
+
+  body::before {
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(56, 189, 248, 0.2) 0 1px, transparent 2px),
+      radial-gradient(circle at 72% 38%, rgba(37, 99, 235, 0.2) 0 1px, transparent 2px),
+      radial-gradient(circle at 45% 72%, rgba(129, 140, 248, 0.18) 0 1px, transparent 2px);
+    background-size: 240px 240px, 300px 300px, 260px 260px;
+    animation: neonParticleDriftA 22s linear infinite;
+  }
+
+  body::after {
+    background-image:
+      radial-gradient(circle at 35% 18%, rgba(59, 130, 246, 0.15) 0 1px, transparent 2px),
+      radial-gradient(circle at 84% 64%, rgba(14, 165, 233, 0.14) 0 1px, transparent 2px),
+      radial-gradient(circle at 12% 82%, rgba(99, 102, 241, 0.13) 0 1px, transparent 2px);
+    background-size: 320px 320px, 360px 360px, 300px 300px;
+    filter: blur(0.3px);
+    animation: neonParticleDriftB 28s ease-in-out infinite alternate;
+  }
+
+  :root[data-theme="dark"] body {
+    background-image: linear-gradient(180deg, #0b1324 0%, #0b1220 100%);
+  }
+
+  :root[data-theme="dark"] body::before,
+  :root[data-theme="dark"] body::after {
+    opacity: 0.2;
+  }
+}
+
+@keyframes neonParticleDriftA {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(5px, -7px, 0);
+  }
+  100% {
+    transform: translate3d(-4px, 5px, 0);
+  }
+}
+
+@keyframes neonParticleDriftB {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(-6px, 6px, 0) scale(1.01);
+  }
+}
+
+.card-shadow {
+  box-shadow: 0 22px 46px -30px rgb(37 109 255 / 0.55), 0 8px 18px -12px rgb(15 23 42 / 0.28);
+}
+
+@layer utilities {
+  /* Korean finance app style: softer cards and controls */
+  .rounded-2xl {
+    border-radius: 1rem;
+  }
+
+  .rounded-xl {
+    border-radius: 0.75rem;
+  }
+
+  /* Keep readable, less heavy than pure black */
+  .font-black {
+    font-weight: 700;
+    letter-spacing: -0.006em;
+  }
+
+  .btn-primary {
+    @apply text-white rounded-xl transition-all hover:brightness-105;
+    background-image: linear-gradient(135deg, #2b7bff 0%, #3b5dff 52%, #5a32ff 100%);
+    box-shadow: 0 16px 28px -16px rgb(37 109 255 / 0.85), 0 0 0 1px rgb(120 150 255 / 0.22) inset;
+  }
+
+  .btn-secondary {
+    @apply bg-bg-card border border-border text-text-secondary rounded-xl transition-all hover:bg-bg-main;
+    box-shadow: 0 6px 16px -14px rgb(15 23 42 / 0.3);
+  }
+
+  .badge-soft {
+    @apply px-2.5 py-1 bg-accent/10 text-accent text-[10px] font-black rounded-lg border border-accent/15 uppercase tracking-wider;
+  }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
+}
