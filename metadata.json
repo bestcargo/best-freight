@@ -1,0 +1,6 @@
+{
+  "name": "FinFlow AI",
+  "description": "A smart personal finance manager with AI insights and predictive spending analysis.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": []
+}
