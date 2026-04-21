@@ -52,9 +52,9 @@ import {
   subYears,
   parseISO
 } from 'date-fns';
-import { cn, formatCurrency } from '../lib/utils';
-import { Transaction, AIInsight } from '../types';
-import { getFinancialInsights } from '../services/gemini';
+import { cn, formatCurrency } from './utils';
+import { Transaction, AIInsight } from './types';
+import { getFinancialInsights } from './gemini';
 
 // Mock data
 const INITIAL_TRANSACTIONS: Transaction[] = [];
