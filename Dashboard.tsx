@@ -54,7 +54,7 @@ import {
 import { cn, formatCurrency } from './utils';
 import { Transaction, AIInsight } from './types';
 import { getFinancialInsights } from './gemini';
-import { db, auth, handleFirestoreError } from '../lib/firebase';
+import { db, auth, handleFirestoreError } from './src/lib/firebase';
 import { 
   collection, 
   query, 
