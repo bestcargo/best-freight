@@ -5,10 +5,10 @@ import firebaseConfig from '../../firebase-applet-config.json';
 
 const apiKey = (import.meta as any).env?.VITE_FIREBASE_API_KEY as string | undefined;
 if (!apiKey) {
-  throw new Error('Missing VITE_FIREBASE_API_KEY. Set it in Netlify env vars and (optionally) in local .env.');
+  console.error('Missing VITE_FIREBASE_API_KEY. Set this in Netlify environment variables.');
 }
 
-const app = initializeApp({ ...firebaseConfig, apiKey });
+const app = initializeApp({ ...firebaseConfig, apiKey: apiKey ?? '' });
 export const auth = getAuth(app);
 // Use the default Firestore database that is configured in Firebase Console.
 export const db = getFirestore(app);
