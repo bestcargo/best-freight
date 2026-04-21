@@ -51,9 +51,9 @@ import {
   subYears,
   parseISO
 } from 'date-fns';
-import { cn, formatCurrency, formatNumberWithCommas } from '../lib/utils';
-import { Transaction, AIInsight } from '../types';
-import { getFinancialInsights, extractTransactionFromReceipt } from '../services/gemini';
+import { cn, formatCurrency } from './utils';
+import { Transaction, AIInsight } from './types';
+import { getFinancialInsights } from './gemini';
 import { useAuth } from '../contexts/AuthContext';
 import { db, auth, handleFirestoreError } from '../lib/firebase';
 import { 
