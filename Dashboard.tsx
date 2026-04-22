@@ -51,10 +51,11 @@ import {
   subYears,
   parseISO
 } from 'date-fns';
-import { cn, formatCurrency } from './utils';
-import { Transaction, AIInsight } from './types';
-import { getFinancialInsights } from './gemini';
-import { db, auth, handleFirestoreError } from './src/lib/firebase';
+import { cn, formatCurrency, formatNumberWithCommas } from '../lib/utils';
+import { Transaction, AIInsight } from '../types';
+import { getFinancialInsights, extractTransactionFromReceipt } from '../services/gemini';
+import { useAuth } from '../contexts/AuthContext';
+import { db, auth, handleFirestoreError } from '../lib/firebase';
 import { 
   collection, 
   query, 
@@ -76,8 +77,7 @@ const INITIAL_TRANSACTIONS: Transaction[] = [];
 const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#06b6d4', '#f97316'];
 
 export default function Dashboard() {
-  const user = auth.currentUser;
-  const firebaseLogout = async () => { await auth.signOut(); };
+  const { user, logout: firebaseLogout } = useAuth();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loadingTransactions, setLoadingTransactions] = useState(true);
   const [currentTab, setCurrentTab] = useState<'dashboard' | 'assets' | 'expenses' | 'income' | 'settings'>('dashboard');
@@ -833,9 +833,14 @@ export default function Dashboard() {
                     <input 
                       name="amount" 
                       type="text" 
+                      inputMode="numeric"
+                      pattern="[0-9,]*"
                       required 
                       value={amountInput}
-                      onChange={(e) => setAmountInput(formatNumberWithCommas(e.target.value))}
+                      onChange={(e) => {
+                        const onlyDigits = e.target.value.replace(/[^0-9]/g, '');
+                        setAmountInput(onlyDigits ? formatNumberWithCommas(onlyDigits) : '');
+                      }}
                       placeholder="0"
                       className="w-full bg-bg-main border border-slate-500 rounded-lg p-3 text-sm font-medium focus:ring-1 focus:ring-primary outline-none" 
                     />
