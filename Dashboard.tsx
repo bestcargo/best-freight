@@ -51,7 +51,7 @@ import {
   subYears,
   parseISO
 } from 'date-fns';
-import { cn, formatCurrency, formatNumberWithCommas } from '../lib/utils';
+import { cn, formatCurrency, formatNumberWithCommas } from '../utils';
 import { Transaction, AIInsight } from '../types';
 import { getFinancialInsights, extractTransactionFromReceipt } from '../services/gemini';
 import { useAuth } from '../contexts/AuthContext';
