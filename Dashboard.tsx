@@ -53,7 +53,7 @@ import {
 } from 'date-fns';
 import { cn, formatCurrency, formatNumberWithCommas } from './utils';
 import { Transaction, AIInsight } from '../types';
-import { getFinancialInsights, extractTransactionFromReceipt } from '../gemini';
+import { getFinancialInsights, extractTransactionFromReceipt } from "./gemini.ts";
 import { useAuth } from '../contexts/AuthContext';
 import { db, auth, handleFirestoreError } from '../lib/firebase';
 import { 
